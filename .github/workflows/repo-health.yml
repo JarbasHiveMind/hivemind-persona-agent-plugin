@@ -9,4 +9,4 @@ jobs:
   repo_health:
     uses: OpenVoiceOS/gh-automations/.github/workflows/repo-health.yml@dev
     with:
-      version_file: 'hivemind_ovos_agent_plugin/version.py'
+      version_file: 'hivemind_persona_agent_plugin/version.py'

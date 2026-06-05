@@ -19,7 +19,7 @@ jobs:
       MATRIX_TOKEN: ${{ secrets.MATRIX_TOKEN }}
     with:
       branch: 'dev'
-      version_file: 'hivemind_ovos_agent_plugin/version.py'
+      version_file: 'hivemind_persona_agent_plugin/version.py'
       update_changelog: true
       publish_prerelease: true
       propose_release: true
