@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.0.1a2](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.1a2) (2026-06-05)
+## [0.0.2a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.2a1) (2026-06-05)
 
-[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/56bd88b992393bbe9291bdd0558ecf43c0a0b56f...0.0.1a2)
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.1...0.0.2a1)
 
 **Merged pull requests:**
 
-- Configure Renovate [\#1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/1) ([renovate[bot]](https://github.com/apps/renovate))
+- docs: zero-to-hero README and docs/ [\#5](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/5) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
