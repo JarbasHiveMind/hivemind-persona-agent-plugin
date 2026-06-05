@@ -8,6 +8,21 @@ import pytest
 
 pytest.importorskip("hivescope")
 
+
+def _core_has_query() -> bool:
+    """The round-trip needs a hivemind-core that handles QUERY/CASCADE."""
+    try:
+        from hivemind_core.protocol import HiveMindListenerProtocol
+        return hasattr(HiveMindListenerProtocol, "handle_query_message")
+    except Exception:
+        return False
+
+
+pytestmark = pytest.mark.skipif(
+    not _core_has_query(),
+    reason="needs hivemind-core with QUERY/CASCADE (>= the streaming-protocol release)",
+)
+
 from hivemind_bus_client.message import HiveMessage, HiveMessageType  # noqa: E402
 from ovos_bus_client.message import Message  # noqa: E402
 from hivescope.topology import TopologyBuilder  # noqa: E402
