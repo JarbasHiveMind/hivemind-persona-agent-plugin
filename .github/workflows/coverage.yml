@@ -10,7 +10,7 @@ jobs:
     uses: OpenVoiceOS/gh-automations/.github/workflows/coverage.yml@dev
     with:
       python_version: '3.11'
-      coverage_source: 'hivemind_ovos_agent_plugin'
+      coverage_source: 'hivemind_persona_agent_plugin'
       test_path: 'tests/'
       # install_extras intentionally unset — the upstream workflow's
       # `.[dev]` first-attempt path covers our test deps via the dev

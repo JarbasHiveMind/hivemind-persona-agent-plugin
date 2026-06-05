@@ -9,5 +9,5 @@ jobs:
   release_preview:
     uses: OpenVoiceOS/gh-automations/.github/workflows/release-preview.yml@dev
     with:
-      package_name: 'hivemind_ovos_agent_plugin'
-      version_file: 'hivemind_ovos_agent_plugin/version.py'
+      package_name: 'hivemind_persona_agent_plugin'
+      version_file: 'hivemind_persona_agent_plugin/version.py'
