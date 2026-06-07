@@ -1,12 +1,28 @@
 # Changelog
 
-## [0.0.1a2](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.1a2) (2026-06-05)
+## [0.0.3a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.3a1) (2026-06-07)
 
-[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/56bd88b992393bbe9291bdd0558ecf43c0a0b56f...0.0.1a2)
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.2a2...0.0.3a1)
 
 **Merged pull requests:**
 
-- Configure Renovate [\#1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/1) ([renovate[bot]](https://github.com/apps/renovate))
+- fix\(deps\): require ovos-bus-client\>=2.0.0a3 [\#9](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/9) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.0.2a2](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.2a2) (2026-06-05)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.2a1...0.0.2a2)
+
+**Merged pull requests:**
+
+- test: hivescope e2e for the persona agent [\#7](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/7) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.0.2a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.2a1) (2026-06-05)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.1...0.0.2a1)
+
+**Merged pull requests:**
+
+- docs: zero-to-hero README and docs/ [\#5](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/5) ([JarbasAl](https://github.com/JarbasAl))
 
 
 
