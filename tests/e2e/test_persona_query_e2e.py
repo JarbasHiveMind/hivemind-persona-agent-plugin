@@ -35,6 +35,29 @@ def _query(utt, qid, peer):
                        metadata={"query_id": qid, "originator_peer": peer})
 
 
+def _speak_texts(records):
+    """Unwrap recorded QUERY response chunks (HiveMessage(QUERY,
+    payload=HiveMessage(BUS, payload=Message("speak")))) to the spoken text."""
+    texts = []
+    for rec in records:
+        payload = rec.payload
+        for _ in range(4):
+            if isinstance(payload, Message):
+                if payload.msg_type == "speak":
+                    texts.append(payload.data.get("utterance", ""))
+                break
+            if isinstance(payload, dict):
+                if payload.get("type") == "speak":
+                    texts.append(payload.get("data", {}).get("utterance", ""))
+                    break
+                payload = payload.get("payload")
+            else:
+                payload = getattr(payload, "payload", None)
+            if payload is None:
+                break
+    return texts
+
+
 def test_persona_answers_query_streaming():
     with mock.patch("hivemind_persona_agent_plugin.Persona") as MockPersona:
         # the persona streams two sentences then ends
@@ -59,5 +82,9 @@ def test_persona_answers_query_streaming():
             # the streamed answer arrived as >=2 QUERY response chunks
             chunks = s.recorder.received(HiveMessageType.QUERY.value, direction="in")
             assert len(chunks) >= 2
+            # and the satellite received the persona's actual answer text
+            answer = " ".join(_speak_texts(chunks))
+            assert "Paris is the capital" in answer, \
+                f"expected the persona answer text, got {answer!r}"
         finally:
             b.stop_all()
