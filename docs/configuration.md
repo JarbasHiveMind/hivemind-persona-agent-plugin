@@ -1,6 +1,6 @@
 # Configuration
 
-The plugin is configured via the `agent_protocol` block in
+The plugin is configured through the `agent_protocol` block in
 `~/.config/hivemind-core/server.json`.
 
 ```json
@@ -18,7 +18,7 @@ The plugin is configured via the `agent_protocol` block in
 
 | Key       | Type           | Required | Default | Description |
 |-----------|----------------|----------|---------|-------------|
-| `persona` | string or dict | yes      | —       | Path to a persona JSON file (tilde-expanded), or an inline persona config dict. |
+| `persona` | string or dict | yes      | none    | Path to a persona JSON file (tilde-expanded), or an inline persona config dict. |
 
 ### `persona` as a path
 
@@ -30,8 +30,8 @@ The plugin is configured via the `agent_protocol` block in
 }
 ```
 
-The file is loaded at startup with `json.load`. Changes to the file after the process
-has started are not hot-reloaded; restart `hivemind-core` to pick up edits.
+The plugin loads the file at startup with `json.load`. Changes to the file after the
+process starts are not hot-reloaded. Restart `hivemind-core` to pick up edits.
 
 ### `persona` as an inline dict
 
@@ -62,5 +62,8 @@ name:  hivemind-persona-agent-plugin
 class: hivemind_persona_agent_plugin.PersonaAgentProtocol
 ```
 
-The entry point is declared in `pyproject.toml`. `hivemind-core` loads it via
+The entry point is declared in `pyproject.toml`. `hivemind-core` loads it through
 `AgentProtocolFactory.create("hivemind-persona-agent-plugin", config=...)`.
+
+---
+[← Query Flow](query_flow.md) · [Home](../README.md) · [Persona Format →](persona_format.md)
