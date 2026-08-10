@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a4](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.3a4) (2026-08-10)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a3...0.0.3a4)
+
+**Merged pull requests:**
+
+- docs: add funding attribution [\#16](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/16) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a3](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.3a3) (2026-07-31)
 
 [Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a2...0.0.3a3)
