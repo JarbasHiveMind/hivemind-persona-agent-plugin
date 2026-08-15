@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a5](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.3a5) (2026-08-15)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a4...0.0.3a5)
+
+**Merged pull requests:**
+
+- docs: add AGENTS.md with per-repo agent conventions [\#18](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/18) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a4](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.3a4) (2026-08-10)
 
 [Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a3...0.0.3a4)
