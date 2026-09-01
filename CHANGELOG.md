@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.4a1) (2026-09-01)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a5...0.0.4a1)
+
+**Merged pull requests:**
+
+- fix: allow ovos-config 3.x [\#21](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/21) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a5](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.3a5) (2026-08-15)
 
 [Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a4...0.0.3a5)
