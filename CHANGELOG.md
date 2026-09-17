@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.5a1) (2026-09-17)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.4a1...0.0.5a1)
+
+**Merged pull requests:**
+
+- fix: lift hivemind-bus-client ceiling below 1.0.0 [\#23](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/23) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.4a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.4a1) (2026-09-01)
 
 [Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.3a5...0.0.4a1)
