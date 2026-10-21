@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.6a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.6a1) (2026-10-21)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.5a1...0.0.6a1)
+
+**Merged pull requests:**
+
+- fix: answer QUERY and BUS utterances with a real Persona [\#26](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/26) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.5a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.5a1) (2026-09-17)
 
 [Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.4a1...0.0.5a1)
