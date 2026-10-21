@@ -40,15 +40,12 @@ process starts are not hot-reloaded. Restart `hivemind-core` to pick up edits.
   "hivemind-persona-agent-plugin": {
     "persona": {
       "name": "Inline Assistant",
-      "solvers": [
-        {
-          "module": "ovos-solver-openai-plugin",
-          "ovos-solver-openai-plugin": {
-            "api_url": "http://localhost:8000/v1",
-            "model": "local-model"
-          }
-        }
-      ]
+      "solvers": ["ovos-chat-openai-plugin"],
+      "ovos-chat-openai-plugin": {
+        "api_url": "http://localhost:8000/v1",
+        "model": "local-model",
+        "key": "none"
+      }
     }
   }
 }

@@ -8,9 +8,9 @@ code and that, if ignored, produce work that will be rejected.
 
 An [ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) agent protocol
 plugin for [HiveMind-core](https://github.com/JarbasHiveMind/HiveMind-core). It
-implements `AgentProtocol.natural_language_query`, answering a satellite's query
-directly from a configured LLM/solver persona and streaming the answer sentence
-by sentence — no OVOS bus, no skills stack. Part of the
+implements `AgentProtocol.natural_language_query` for QUERY/CASCADE and answers
+a BUS utterance on the agent bus with `speak` replies, directly from a configured
+LLM/solver persona, sentence by sentence — no skills stack. Part of the
 [HiveMind](https://github.com/JarbasHiveMind) ecosystem — a protocol for
 connecting satellite devices to a hub running
 [OpenVoiceOS](https://github.com/OpenVoiceOS). Related repos:
@@ -28,9 +28,8 @@ connecting satellite devices to a hub running
 - Set up a throwaway environment inside your clone; never touch a shared venv:
   `python3 -m venv .venv && VIRTUAL_ENV=$PWD/.venv uv pip install -e ".[dev]" --prerelease=allow`
 - Run the suite in the foreground: `python3 -m pytest tests -q`. The e2e test
-  in `tests/e2e/` needs `hivescope` and a `hivemind-core` build with QUERY/CASCADE
-  support; it self-skips (`pytest.importorskip` / `pytestmark`) when either is
-  missing, so a skip there is not a failure.
+  in `tests/e2e/` needs `hivescope`, which the `test` extra installs. It does not
+  skip: a missing dependency is a failure.
 - `uv`, never `pip`. If latest prereleases fail to install or resolve, that is a
   bug to FIX at the source, not to work around with a pin downgrade.
 
