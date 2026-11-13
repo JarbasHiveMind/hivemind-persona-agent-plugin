@@ -8,7 +8,7 @@ from unittest.mock import MagicMock
 from ovos_bus_client.message import Message
 
 from hivemind_persona_agent_plugin import PersonaAgentProtocol
-from tests.conftest import persona_config
+from conftest import persona_config
 
 PEER = "sat::session-1"
 SESSION = {"session_id": "ns:sat-session", "lang": "en-US"}

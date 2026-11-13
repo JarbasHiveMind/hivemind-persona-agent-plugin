@@ -46,7 +46,7 @@ def _speak_texts(records):
 
 def _hub(solvers, satellites=("S0",)):
     from hivemind_persona_agent_plugin import PersonaAgentProtocol
-    from tests.conftest import persona_config
+    from conftest import persona_config
     agent = PersonaAgentProtocol(
         config={"persona": persona_config("test-capitals-solver")})
     b = TopologyBuilder()
