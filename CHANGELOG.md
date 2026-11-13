@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.7a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.7a1) (2026-11-13)
+
+[Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.6a1...0.0.7a1)
+
+**Merged pull requests:**
+
+- fix\(tests\): drop tests/\_\_init\_\_.py so build\_tests imports the wheel [\#25](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/pull/25) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.6a1](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/tree/0.0.6a1) (2026-10-21)
 
 [Full Changelog](https://github.com/JarbasHiveMind/hivemind-persona-agent-plugin/compare/0.0.5a1...0.0.6a1)
