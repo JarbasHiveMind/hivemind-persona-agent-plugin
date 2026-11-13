@@ -10,15 +10,12 @@ covers the fields relevant to HiveMind use.
 ```json
 {
   "name": "MyAssistant",
-  "solvers": [
-    {
-      "module": "ovos-solver-openai-plugin",
-      "ovos-solver-openai-plugin": {
-        "api_url": "http://localhost:8000/v1",
-        "model": "local-model"
-      }
-    }
-  ]
+  "solvers": ["ovos-chat-openai-plugin"],
+  "ovos-chat-openai-plugin": {
+    "api_url": "http://localhost:8000/v1",
+    "model": "local-model",
+    "key": "none"
+  }
 }
 ```
 
@@ -27,21 +24,18 @@ covers the fields relevant to HiveMind use.
 | Field     | Type   | Description |
 |-----------|--------|-------------|
 | `name`    | string | Human-readable name for the persona. Used in logs. Defaults to `"HiveMind Persona"` if absent. |
-| `solvers` | list   | Ordered list of solver plugin configs. Each entry has a `"module"` key naming the solver plugin, plus a same-named key for its config. |
+| `solvers` | list   | Ordered list of plugin names, as strings. The persona tries them in this order. |
+| `<plugin name>` | object | The settings of the plugin with that name, as a sibling key of `solvers`. |
 
 ## Solver plugins
 
-Any `QuestionSolver` plugin compatible with `ovos-plugin-manager` works. Common
-choices:
+Any solver or chat engine plugin that `ovos-plugin-manager` can load works. A common
+choice is `ovos-chat-openai-plugin` from `ovos-openai-plugin`: an OpenAI-compatible
+REST endpoint, local or remote. `neon-solver-*` packages are excluded. They pin old
+OVOS versions and break dependencies.
 
-- `ovos-solver-openai-plugin`: an OpenAI-compatible REST endpoint, local or remote.
-- `ovos-solver-persona-plugin`: persona chaining, where one persona delegates to
-  another.
-- `neon-solver-*` packages are excluded. They pin old OVOS versions and break
-  dependencies.
-
-The plugin tries solvers in list order. The first solver that returns a non-empty
-answer wins. The plugin does not call the remaining solvers.
+The persona tries plugins in list order. The first plugin that returns a non-empty
+answer wins. The persona does not call the remaining plugins.
 
 ## Storing the persona file
 

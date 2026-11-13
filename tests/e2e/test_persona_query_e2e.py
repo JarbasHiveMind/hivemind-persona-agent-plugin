@@ -1,31 +1,17 @@
-"""hivescope e2e: a satellite QUERY is answered by the persona agent and
-streamed back. The LLM/solver is mocked deterministically (no API keys / no
-solver in CI), so this exercises the PersonaAgentProtocol.natural_language_query
-streaming contract through a real hivemind-core QUERY round-trip."""
-from unittest import mock
+"""hivescope e2e: a satellite QUERY and a BUS utterance are answered by the
+persona agent. The persona is a real ``Persona`` with an offline solver (see
+``tests/conftest.py``), so the answer text comes through the real
+``Persona.stream`` call and a real hivemind-core round-trip."""
+import time
 
 import pytest
-
-pytest.importorskip("hivescope")
-
-
-def _core_has_query() -> bool:
-    """The round-trip needs a hivemind-core that handles QUERY/CASCADE."""
-    try:
-        from hivemind_core.protocol import HiveMindListenerProtocol
-        return hasattr(HiveMindListenerProtocol, "handle_query_message")
-    except Exception:
-        return False
-
-
-pytestmark = pytest.mark.skipif(
-    not _core_has_query(),
-    reason="needs hivemind-core with QUERY/CASCADE (>= the streaming-protocol release)",
-)
 
 from hivemind_bus_client.message import HiveMessage, HiveMessageType  # noqa: E402
 from ovos_bus_client.message import Message  # noqa: E402
 from hivescope.topology import TopologyBuilder  # noqa: E402
+
+
+ALLOWED = ["recognizer_loop:utterance", "ovos.utterance.handle"]
 
 
 def _query(utt, qid, peer):
@@ -58,33 +44,67 @@ def _speak_texts(records):
     return texts
 
 
-def test_persona_answers_query_streaming():
-    with mock.patch("hivemind_persona_agent_plugin.Persona") as MockPersona:
-        # the persona streams two sentences then ends
-        MockPersona.return_value.stream.side_effect = \
-            lambda *a, **k: iter(["Paris is the capital ", "of France."])
-        from hivemind_persona_agent_plugin import PersonaAgentProtocol
-        agent = PersonaAgentProtocol(config={"persona": {"name": "test"}})
+def _hub(solvers, satellites=("S0",)):
+    from hivemind_persona_agent_plugin import PersonaAgentProtocol
+    from tests.conftest import persona_config
+    agent = PersonaAgentProtocol(
+        config={"persona": persona_config("test-capitals-solver")})
+    b = TopologyBuilder()
+    m = b.add_master("M0", agent_protocol=agent)
+    m.register_satellite("k", password="p", allowed_types=ALLOWED)
+    for name in satellites:
+        b.add_satellite(name, upstream=m, allowed_types=ALLOWED)
+    b.start_all()
+    return b
 
-        b = TopologyBuilder()
-        m = b.add_master("M0", agent_protocol=agent)
-        m.register_satellite("k", password="p",
-                             allowed_types=["recognizer_loop:utterance"])
-        b.add_satellite("S0", upstream=m,
-                        allowed_types=["recognizer_loop:utterance"])
-        b.start_all()
-        try:
-            s = b.get_satellite("S0")
-            s.send(_query("capital of France", "q1", s.peer))
-            recv = s.recorder.wait_for(HiveMessageType.QUERY.value,
-                                       direction="in", timeout=4.0)
-            assert recv is not None, "persona QUERY answer never reached the satellite"
-            # the streamed answer arrived as >=2 QUERY response chunks
-            chunks = s.recorder.received(HiveMessageType.QUERY.value, direction="in")
-            assert len(chunks) >= 2
-            # and the satellite received the persona's actual answer text
-            answer = " ".join(_speak_texts(chunks))
-            assert "Paris is the capital" in answer, \
-                f"expected the persona answer text, got {answer!r}"
-        finally:
-            b.stop_all()
+
+def _bus_messages(sat, msg_type):
+    """Data of every BUS message of *msg_type* the satellite received."""
+    return [r.payload["data"] for r in sat.recorder.received(
+        HiveMessageType.BUS.value, direction="in")
+        if isinstance(r.payload, dict) and r.payload.get("type") == msg_type]
+
+
+def _wait_handled(sat, timeout=6.0):
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if _bus_messages(sat, "ovos.utterance.handled"):
+            return
+        time.sleep(0.1)
+    raise AssertionError("ovos.utterance.handled never reached the satellite")
+
+
+def test_persona_answers_query_streaming(solvers):
+    b = _hub(solvers)
+    try:
+        s = b.get_satellite("S0")
+        s.send(_query("what is the capital of France", "q1", s.peer))
+        deadline = time.time() + 4.0
+        while time.time() < deadline:
+            spoken = _speak_texts(s.recorder.received(
+                HiveMessageType.QUERY.value, direction="in"))
+            if len(spoken) >= 2:
+                break
+            time.sleep(0.05)
+        assert spoken == ["Paris is the capital of France.",
+                          "It lies on the Seine."]
+    finally:
+        b.stop_all()
+
+
+@pytest.mark.parametrize("topic", ["recognizer_loop:utterance",
+                                   "ovos.utterance.handle"])
+def test_persona_answers_bus_utterance_to_its_peer_only(solvers, topic):
+    b = _hub(solvers, satellites=("S0", "S1"))
+    try:
+        s0, s1 = b.get_satellite("S0"), b.get_satellite("S1")
+        s0.send(HiveMessage(HiveMessageType.BUS, payload=Message(
+            topic, {"utterances": ["what is the capital of France"],
+                    "lang": "en-US"})))
+        _wait_handled(s0)
+        assert [d["utterance"] for d in _bus_messages(s0, "speak")] == ["Paris is the capital of France.",
+                                           "It lies on the Seine."]
+        assert _bus_messages(s1, "speak") == []
+        assert _bus_messages(s1, "ovos.utterance.handled") == []
+    finally:
+        b.stop_all()
